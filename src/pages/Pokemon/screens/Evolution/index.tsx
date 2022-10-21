@@ -37,8 +37,8 @@ const Evolution: React.FC<{ name: string; color: string }> = ({
     [],
   );
 
-  // Criando uma função recursiva para navegar na árvore de evolução do pokémon
-  // A cada chamada é extraído o nome da espécie e concatenado com a lista dos nomes.
+  // Creating a recursive function to navigate the pokémon evolution tree
+  // At each call, the species name is extracted and concatenated with the list of names.
   const handleNameSpecies = useCallback(
     ({
       species,
@@ -54,8 +54,8 @@ const Evolution: React.FC<{ name: string; color: string }> = ({
       if (evolution_details.length)
         namesPokemons[0].level = evolution_details[0].min_level;
 
-      // A propriedade evolves_to retornada pela api é um vetor, desta maneira, pode-se que um
-      // pokémon tenha duas caminhos/folhas na evolução.
+      // The evolves_to property returned by the api is a vector, in this way, one can
+      // pokémon have two paths/leaves in evolution.
       // if (evolution_details.length) console.log(evolution_details[0].min_level);
       evolves_to.forEach((evolves: EvolvesProps) => {
         namesPokemons = namesPokemons.concat(handleNameSpecies(evolves));
@@ -67,10 +67,10 @@ const Evolution: React.FC<{ name: string; color: string }> = ({
   );
 
   useEffect(() => {
-    // Na rota /pokemon-species é retornado os atributos da espécie do Pokémon
+    // In the route /pokemon-species, the attributes of the Pokémon's species are returned
     api.get(`/pokemon-species/${name}`).then(responseSpecies => {
-      // E na propriedade evolution_chain é dado a url para a cadeia evolutiva do Pokémon
-      // É extraído uma parte da url pelo motivo que o axios já possui o caminho raiz da api
+      // And in the evolution_chain property is given the url to the evolution chain of the Pokémon
+      // A part of the url is extracted because axios already has the root path of the api
       const url = responseSpecies.data.evolution_chain.url.split('v2')[1];
       api.get(url).then(responseEvolution => {
         const species = handleNameSpecies(responseEvolution.data.chain);
@@ -113,7 +113,7 @@ const Evolution: React.FC<{ name: string; color: string }> = ({
                 <Pokeball />
                 <img
                   src={evolves.image}
-                  alt={`Imagem do pokémon ${evolves.name}`}
+                  alt={`Picture of pokemon ${evolves.name}`}
                 />
               </EvolutionPokemonImage>
               <p>{evolves.number}</p>
@@ -122,7 +122,7 @@ const Evolution: React.FC<{ name: string; color: string }> = ({
           </React.Fragment>
         ))
       ) : (
-        <h1 style={{ textAlign: 'center' }}>Carregando...</h1>
+        <h1 style={{ textAlign: 'center' }}>Loading...</h1>
       )}
     </SectionEvolution>
   );

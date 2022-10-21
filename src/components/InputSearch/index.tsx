@@ -23,7 +23,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ value, onChange }) => {
     <Container isFocused={isFocused}>
       <FaSearch />
       <input
-        placeholder={isFocused ? '' : 'Qual Pokémon você está procurando?'}
+        placeholder={isFocused ? '' : 'Which Pokemon are you looking for?'}
         value={value}
         onChange={e => onChange(e.target.value)}
         onFocus={handleInputFocus}

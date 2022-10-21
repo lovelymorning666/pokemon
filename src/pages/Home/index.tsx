@@ -21,19 +21,19 @@ const Home: React.FC = () => {
   const [pokemonSearch, setPokemonSearch] = useState('');
   const [pokemonsOffsetApi, setPokemonsOffsetApi] = useState(NUMBER_POKEMONS);
 
-  // Filtra os pokémons a partir da string digita no input de busca
+  // Filter pokemons from the string typed in the search input
   const handleSearchPokemons = useCallback(async () => {
     const response = await api.get(`/pokemon?limit=${NUMBER_MAX_POKEMONS_API}`);
 
     setPokemonSearch(pokemonSearch.toLocaleLowerCase());
-    // Valida nomes dos pokémons constam no valor da variável pokemonSearch
+    // Validate pokemon names contained in pokemonSearch variable value
     const pokemonsSearch = response.data.results.filter(
       ({ name }: PokemonProps) => name.includes(pokemonSearch),
     );
     setPokemons(pokemonsSearch);
   }, [pokemonSearch]);
 
-  // Carrega uma lista inicial de pokémons
+  // Load an initial pokemon list
   const handlePokemonsListDefault = useCallback(async () => {
     const response = await api.get('/pokemon', {
       params: {
@@ -44,14 +44,14 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // A busca é só feita quando a string tiver 2 ou mais caracteres
+    // The search is only performed when the string has 2 or more characters
     const isSearch = pokemonSearch.length >= 2;
 
     if (isSearch) handleSearchPokemons();
     else handlePokemonsListDefault();
   }, [pokemonSearch, handlePokemonsListDefault, handleSearchPokemons]);
 
-  // Adiciona novos pokémons a lista
+  // Add new pokemon to list
   const handleMorePokemons = useCallback(
     async offset => {
       const response = await api.get(`/pokemon`, {
@@ -85,7 +85,7 @@ const Home: React.FC = () => {
           type="button"
           onClick={() => handleMorePokemons(pokemonsOffsetApi)}
         >
-          CARREGAR MAIS
+          LOAD MORE
         </button>
       )}
     </Container>

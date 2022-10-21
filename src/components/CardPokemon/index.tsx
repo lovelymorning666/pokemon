@@ -36,8 +36,8 @@ const CardPokemon: React.FC<{ name: string }> = ({ name }) => {
 
       let backgroundColor: keyof typeof iconTypePokemon = types[0].type.name;
 
-      // Qualquer pokémon com duas classes ou mais e que tenha como primeira classe o tipo "normal",
-      // Esse codicinal força a pegar a segunda classe, o motivo desse fluxo é a melhor estilização do layout do app
+      // Any pokemon with two classes or more and whose first class is "normal",
+      // This codicinal forces to take the second class, the reason for this flow is to better style the app layout
       if (backgroundColor === 'normal' && types.length > 1) {
         backgroundColor = types[1].type.name;
       }
@@ -47,7 +47,7 @@ const CardPokemon: React.FC<{ name: string }> = ({ name }) => {
         backgroundColor: colors.backgroundType[backgroundColor],
         image: sprites.other['official-artwork'].front_default,
         type: types.map((pokemonType: any) => {
-          // Reconhece a variável como uma chave para os arrays pokemonTypes e colors.type
+          // Recognize the variable as a key to the pokemonTypes and colors.type arrays
           const typeName = pokemonType.type
             .name as keyof typeof iconTypePokemon;
 
@@ -78,7 +78,7 @@ const CardPokemon: React.FC<{ name: string }> = ({ name }) => {
         <Pokeball />
       </Pokemon>
       {pokemon.image && (
-        <img src={pokemon.image} alt={`Imagem do pokémon ${name}`} />
+        <img src={pokemon.image} alt={`Pokemon image ${name}`} />
       )}
     </Container>
   );
